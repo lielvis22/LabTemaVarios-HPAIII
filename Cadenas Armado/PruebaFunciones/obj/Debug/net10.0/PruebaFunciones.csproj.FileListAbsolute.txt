@@ -1,0 +1,15 @@
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.AssemblyInfoInputs.cache
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.AssemblyInfo.cs
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.csproj.CoreCompileInputs.cache
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\bin\Debug\net10.0\PruebaFunciones.exe
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\bin\Debug\net10.0\PruebaFunciones.deps.json
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\bin\Debug\net10.0\PruebaFunciones.runtimeconfig.json
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\bin\Debug\net10.0\PruebaFunciones.dll
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\bin\Debug\net10.0\PruebaFunciones.pdb
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.dll
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\refint\PruebaFunciones.dll
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.pdb
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFunciones.genruntimeconfig.cache
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\ref\PruebaFunciones.dll
+C:\Users\lielv\source\repos\PruebaFunciones\PruebaFunciones\obj\Debug\net10.0\PruebaFu.05E7F35F.Up2Date

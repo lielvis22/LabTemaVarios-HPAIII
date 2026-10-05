@@ -1,0 +1,15 @@
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\bin\Debug\net10.0\MetLimpieza.exe
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\bin\Debug\net10.0\MetLimpieza.deps.json
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\bin\Debug\net10.0\MetLimpieza.runtimeconfig.json
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\bin\Debug\net10.0\MetLimpieza.dll
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\bin\Debug\net10.0\MetLimpieza.pdb
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.AssemblyInfoInputs.cache
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.AssemblyInfo.cs
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.csproj.CoreCompileInputs.cache
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.dll
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\refint\MetLimpieza.dll
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.pdb
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpieza.genruntimeconfig.cache
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\ref\MetLimpieza.dll
+C:\Users\lielv\source\repos\PruebaFunciones\MetLimpieza\obj\Debug\net10.0\MetLimpi.F4383B69.Up2Date
