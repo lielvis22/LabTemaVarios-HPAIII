@@ -52,7 +52,7 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 
 **Objetivo:** reforzar las buenas prácticas de seguridad en el acceso a datos y los fundamentos de programación orientada a objetos y algoritmos en C#.
 
-**Arquitectura:** cada ejercicio es una aplicación de consola .NET independiente, en su propia carpeta, para poder ejecutarlo y probarlo por separado.
+**Arquitectura:** el Problema 2 es un proyecto de consola dentro de una solución de Visual Studio (`PruebaFunciones.slnx`); los problemas 3, 4 y 5 son aplicaciones de un solo archivo de .NET 10, y el Problema 1 es un script SQL.
 
 ---
 
@@ -60,11 +60,11 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 
 | N.º | Problema | Escenario | Carpeta |
 |---|---|---|---|
-| 1 | Consultas SQL (3) | Escenario 1 | `SQL/` |
-| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 | `PruebaFunciones/` |
-| 3 | Métodos sobrecargados | Escenario 2 | `SobreCarga/` |
-| 4 | Recursividad: factorial (n!) | Escenario 2 | `Factorial/` |
-| 5 | Análisis de frecuencias | Escenario 3 | `Frecuencias/` |
+| 1 | Consultas SQL (3) | Escenario 1 | `ConsultaSQLCrud.sql` |
+| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 | `Cadenas Armado/PruebaFunciones/` |
+| 3 | Métodos sobrecargados | Escenario 2 | `CargaFactorialFrecuencia/SobreCarga.cs` |
+| 4 | Recursividad: factorial (n!) | Escenario 2 | `CargaFactorialFrecuencia/Factorial.cs` |
+| 5 | Análisis de frecuencias | Escenario 3 | `CargaFactorialFrecuencia/Frecuencias.cs` |
 
 ---
 
@@ -80,7 +80,7 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 
 > Verifica tu versión con: `dotnet --version`
 >
-> El ejercicio de sobrecarga se ejecuta como **aplicación de un solo archivo** (`dotnet run SobreCarga.cs`), función disponible desde **.NET 10**.
+> Los ejercicios de `CargaFactorialFrecuencia/` se ejecutan como **aplicaciones de un solo archivo** (`dotnet run Archivo.cs`), función disponible desde **.NET 10**.
 
 ---
 
@@ -88,24 +88,27 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 
 ```
 📦 LabTemaVarios-HPAIII
- ┣ 📂 PruebaFunciones
- ┃ ┣ 📜 Program.cs
- ┃ ┗ 📜 PruebaFunciones.csproj
- ┣ 📂 Factorial
- ┃ ┣ 📜 Program.cs
- ┃ ┗ 📜 Factorial.csproj
- ┣ 📂 SobreCarga
- ┃ ┗ 📜 SobreCarga.cs
- ┣ 📂 Frecuencias
- ┃ ┣ 📜 Program.cs
- ┃ ┗ 📜 Frecuencias.csproj
- ┣ 📂 SQL
- ┃ ┗ 📜 consultas.sql
- ┣ 📂 img
- ┃ ┣ 🖼 problema1.png
- ┃ ┗ 🖼 problema2.png
+ ┣ 📂 Cadenas Armado                  ← Problema 2 (solución de Visual Studio)
+ ┃ ┣ 📂 MetLimpieza
+ ┃ ┃ ┣ 📜 Program.cs
+ ┃ ┃ ┗ 📜 MetLimpieza.csproj
+ ┃ ┣ 📂 PruebaFunciones
+ ┃ ┃ ┣ 📜 Program.cs                  ← GenerarInsert / GenerarUpdate
+ ┃ ┃ ┗ 📜 PruebaFunciones.csproj
+ ┃ ┗ 📜 PruebaFunciones.slnx
+ ┣ 📂 CargaFactorialFrecuencia        ← Problemas 3, 4 y 5 (archivos únicos)
+ ┃ ┣ 📜 SobreCarga.cs                 ← Métodos sobrecargados
+ ┃ ┣ 📜 Factorial.cs                  ← Factorial recursivo
+ ┃ ┗ 📜 Frecuencias.cs                ← Frecuencias del dado
+ ┣ 📜 ConsultaSQLCrud.sql             ← Problema 1 (consultas de inyección SQL)
  ┗ 📜 README.md
 ```
+
+| Carpeta / archivo | Contenido |
+|---|---|
+| `Cadenas Armado/` | Solución `PruebaFunciones.slnx` con el proyecto que genera las cadenas `INSERT` y `UPDATE`. |
+| `CargaFactorialFrecuencia/` | Programas de un solo archivo (*file-based apps* de .NET 10) para sobrecarga, factorial y frecuencias. |
+| `ConsultaSQLCrud.sql` | Las 3 consultas de inyección SQL ejecutadas sobre `productosdb` en MySQL. |
 
 ---
 
@@ -115,7 +118,7 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - [Git](https://git-scm.com/)
-- [MySQL 8.0](https://dev.mysql.com/downloads/) (solo para el Escenario 1)
+- [MySQL 8.0](https://dev.mysql.com/downloads/) (solo para el Problema 1)
 - Visual Studio 2022 o Visual Studio Code con la extensión C# Dev Kit
 
 ### Pasos
@@ -130,30 +133,29 @@ cd LabTemaVarios-HPAIII
 **2. Restaurar dependencias**
 
 ```bash
-dotnet restore PruebaFunciones
-dotnet restore Factorial
-dotnet restore Frecuencias
+dotnet restore "Cadenas Armado/PruebaFunciones.slnx"
 ```
+
+> Los archivos de `CargaFactorialFrecuencia/` no necesitan `restore`: `dotnet run` los compila directamente.
 
 **3. Ejecutar cada ejercicio**
 
 ```bash
+# Problema 1: Consultas SQL
+# Abrir ConsultaSQLCrud.sql en MySQL Workbench y ejecutarlo sobre la base productosdb
+
 # Problema 2: Generación de cadenas INSERT/UPDATE
-dotnet run --project PruebaFunciones
+dotnet run --project "Cadenas Armado/PruebaFunciones"
 
-# Problema 3: Métodos sobrecargados (archivo único)
-cd SobreCarga
-dotnet run SobreCarga.cs
+# Problemas 3, 4 y 5: archivos únicos
+cd CargaFactorialFrecuencia
+dotnet run SobreCarga.cs     # Problema 3: Métodos sobrecargados
+dotnet run Factorial.cs      # Problema 4: Factorial recursivo
+dotnet run Frecuencias.cs    # Problema 5: Frecuencias
 cd ..
-
-# Problema 4: Factorial recursivo
-dotnet run --project Factorial
-
-# Problema 5: Frecuencias
-dotnet run --project Frecuencias
 ```
 
-**Alternativa con Visual Studio:** abrir el `.csproj` (o `.sln`/`.slnx`) del ejercicio y presionar `Ctrl + F5`.
+**Alternativa con Visual Studio:** abrir `Cadenas Armado/PruebaFunciones.slnx`, establecer `PruebaFunciones` como proyecto de inicio y presionar `Ctrl + F5`.
 
 ---
 
