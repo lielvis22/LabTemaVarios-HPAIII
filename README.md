@@ -10,12 +10,12 @@ Herramientas de la Programación Aplicada III (.NET)
 
 | | |
 |---|---|
-| **Estudiante** | `[Elvis Li]` |
-| **Cédula** | `[8-1028-139]` |
+| **Estudiante** | Elvis Li |
+| **Cédula** | 8-1028-139 |
 | **Grupo** | 1IL133 |
 | **Instructora** | Ing. Irina Fong |
 | **Módulo** | IV – Acceso a Base de Datos: Aplicaciones en Capas |
-| **Fecha de entrega** | `[05 de octubre de 2026]` |
+| **Fecha de entrega** | 05 de octubre de 2026 |
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-12-239120?logo=csharp&logoColor=white)
@@ -321,11 +321,11 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 
 | | |
 |---|---|
-| **Nombre** | `[Elvis Li]` |
-| **Cédula** | `[8-1028-139]` |
-| **Correo institucional** | `[elvis.li@utp.ac.pa]` |
+| **Nombre** | Elvis Li |
+| **Cédula** | 8-1028-139 |
+| **Correo institucional** | elvis.li@utp.ac.pa |
 | **Institución** | Universidad Tecnológica de Panamá |
-| **Carrera** | `[Licenciatura en Ingeniería en Sistema Computacionales]` |
+| **Carrera** | Licenciatura en Ingeniería en Sistema Computacionales |
 
 ---
 
@@ -333,6 +333,6 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 
 **Universidad Tecnológica de Panamá** · Facultad de Ingeniería en Sistemas Computacionales
 Herramientas de la Programación Aplicada III (.NET) · Grupo 1IL133
-Entregado el `[05/10/2026]` por `[Elvis Li]`
+Entregado el 05/10/2026 por Elvis Li
 
 </div>
