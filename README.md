@@ -194,12 +194,16 @@ Con parámetros, el valor se envía **como dato y no como código**, por lo que 
 ### Consultas SQL
 
 ```sql
--- 1. Consulta de todos los registros
-SELECT * FROM Usuarios;
+USE productosdb;
 
--- 2. [Tu consulta 2]
+-- 1. Inyección para forzar la devolución de todos los datos (Bypass lógico)
+SELECT * FROM productos WHERE nombre = '' OR '1'='1';
 
--- 3. [Tu consulta 3]
+-- 2. Inyección basada en tiempo (Pausa la respuesta por 5 segundos)
+SELECT * FROM productos WHERE id = 14 - SLEEP(1);
+
+-- 3. Inyección mediante comentario (Anula las condiciones posteriores de la consulta)
+SELECT * FROM productos WHERE nombre = 'Yuca'; -- ' AND precio = '12';
 ```
 
 ### 📸 Evidencia
