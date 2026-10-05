@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧪 Laboratorio: Temas Varios (Repaso del CRUD)
+# 🧪 Laboratorio: Temas Varios 
 
 **Inyección SQL · Consultas Parametrizadas · Métodos Sobrecargados · Recursividad · Frecuencias**
 
