@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧪 Laboratorio de Temas Varios: Repaso del CRUD
+# 🧪 Laboratorio : Temas Varios (Repaso del CRUD)
 
 **Inyección SQL · Consultas Parametrizadas · Métodos Sobrecargados · Recursividad · Frecuencias**
 
@@ -10,12 +10,12 @@ Herramientas de la Programación Aplicada III (.NET)
 
 | | |
 |---|---|
-| **Estudiante** | `[Tu nombre completo]` |
-| **Cédula** | `[0-000-0000]` |
+| **Estudiante** | `[Elvis Li]` |
+| **Cédula** | `[8-1028-139]` |
 | **Grupo** | 1IL133 |
 | **Instructora** | Ing. Irina Fong |
 | **Módulo** | IV – Acceso a Base de Datos: Aplicaciones en Capas |
-| **Fecha de entrega** | `[dd de mes de 2026]` |
+| **Fecha de entrega** | `[05 de octubre de 2026]` |
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-12-239120?logo=csharp&logoColor=white)
@@ -28,13 +28,16 @@ Herramientas de la Programación Aplicada III (.NET)
 ## 📑 Tabla de contenido
 
 1. [Descripción](#-descripción)
-2. [Tecnologías y versiones](#-tecnologías-y-versiones)
-3. [Estructura del proyecto](#-estructura-del-proyecto)
-4. [Guía de instalación (onboarding)](#-guía-de-instalación-onboarding)
-5. [Escenario 1: Seguridad en el CRUD y consultas parametrizadas](#-escenario-1-seguridad-en-el-crud-y-consultas-parametrizadas)
-6. [Escenario 2: Métodos sobrecargados y recursividad](#-escenario-2-métodos-sobrecargados-y-recursividad)
-7. [Escenario 3: Análisis de frecuencias](#-escenario-3-análisis-de-frecuencias)
-8. [Conclusiones](#-conclusiones)
+2. [Problemas resueltos](#-problemas-resueltos)
+3. [Tecnologías y versiones](#-tecnologías-y-versiones)
+4. [Estructura del proyecto](#-estructura-del-proyecto)
+5. [Guía de instalación (onboarding)](#-guía-de-instalación-onboarding)
+6. [Escenario 1: Seguridad en el CRUD y consultas parametrizadas](#-escenario-1-seguridad-en-el-crud-y-consultas-parametrizadas)
+7. [Escenario 2: Métodos sobrecargados y recursividad](#-escenario-2-métodos-sobrecargados-y-recursividad)
+8. [Escenario 3: Análisis de frecuencias](#-escenario-3-análisis-de-frecuencias)
+9. [Conclusiones](#-conclusiones)
+10. [Referencias](#-referencias)
+11. [Autor](#-autor)
 
 ---
 
@@ -45,6 +48,22 @@ Solución de consola en C# organizada en tres escenarios técnicos:
 - **Escenario 1:** construcción dinámica de sentencias `INSERT` y `UPDATE` mediante manipulación de cadenas, demostración de una **inyección SQL** y su mitigación con **consultas parametrizadas**.
 - **Escenario 2:** clase con **métodos sobrecargados** y cálculo del **factorial (n!)** de forma recursiva con control del caso base.
 - **Escenario 3:** algoritmo que recorre un conjunto de números y **contabiliza la frecuencia** de cada elemento.
+
+**Objetivo:** reforzar las buenas prácticas de seguridad en el acceso a datos y los fundamentos de programación orientada a objetos y algoritmos en C#.
+
+**Arquitectura:** aplicación de consola .NET con un menú principal (`Program.cs`) que invoca cada escenario, separado en su propia carpeta y clase para mantener el código organizado por responsabilidad.
+
+---
+
+## 📋 Problemas resueltos
+
+| N.º | Problema | Escenario |
+|---|---|---|
+| 1 | Consultas SQL (3) | Escenario 1 |
+| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 |
+| 3 | Métodos sobrecargados | Escenario 2 |
+| 4 | Recursividad: factorial (n!) | Escenario 2 |
+| 5 | Análisis de frecuencias | Escenario 3 |
 
 ---
 
@@ -78,9 +97,11 @@ Solución de consola en C# organizada en tres escenarios técnicos:
  ┃ ┣ 📜 Program.cs
  ┃ ┗ 📜 LabTemasVarios.csproj
  ┣ 📂 img
- ┃ ┣ 🖼 escenario1.png
- ┃ ┣ 🖼 escenario2.png
- ┃ ┗ 🖼 escenario3.png
+ ┃ ┣ 🖼 problema1.png
+ ┃ ┣ 🖼 problema2.png
+ ┃ ┣ 🖼 problema3.png
+ ┃ ┣ 🖼 problema4.png
+ ┃ ┗ 🖼 problema5.png
  ┣ 📜 LabTemasVarios.sln
  ┗ 📜 README.md
 ```
@@ -183,7 +204,13 @@ SELECT * FROM Usuarios;
 
 ### 📸 Evidencia
 
-![Escenario 1 - Consola](img/escenario1.png)
+**Problema 1: Consultas SQL**
+
+![Problema 1 - Consultas SQL](img/problema1.png)
+
+**Problema 2: Cadenas INSERT/UPDATE y consultas parametrizadas**
+
+![Problema 2 - Inyección SQL y consultas parametrizadas](img/problema2.png)
 
 ---
 
@@ -220,7 +247,13 @@ El **caso base** (`n <= 1`) garantiza que la función deje de llamarse a sí mis
 
 ### 📸 Evidencia
 
-![Escenario 2 - Consola](img/escenario2.png)
+**Problema 3: Métodos sobrecargados**
+
+![Problema 3 - Métodos sobrecargados](img/problema3.png)
+
+**Problema 4: Factorial recursivo**
+
+![Problema 4 - Factorial recursivo](img/problema4.png)
 
 ---
 
@@ -258,7 +291,9 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 
 ### 📸 Evidencia
 
-![Escenario 3 - Consola](img/escenario3.png)
+**Problema 5: Análisis de frecuencias**
+
+![Problema 5 - Frecuencias](img/problema5.png)
 
 ---
 
@@ -268,6 +303,30 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 - `[Conclusión sobre la sobrecarga de métodos]`
 - `[Conclusión sobre la recursividad y el caso base]`
 - `[Conclusión sobre el conteo de frecuencias]`
+
+---
+
+## 📚 Referencias
+
+- [Documentación de .NET 8 – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/core/whats-new/dotnet-8/overview)
+- [SqlCommand.Parameters – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/api/microsoft.data.sqlclient.sqlcommand.parameters)
+- [Inyección SQL – OWASP](https://owasp.org/www-community/attacks/SQL_Injection)
+- [Sobrecarga de métodos en C# – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/csharp/methods#method-overloading)
+- [Dictionary&lt;TKey,TValue&gt; – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/api/system.collections.generic.dictionary-2)
+- 🎥 Video de demostración: `[enlace al video, si aplica]`
+
+---
+
+## 👤 Autor
+
+| | |
+|---|---|
+| **Nombre** | `[Tu nombre completo]` |
+| **Cédula** | `[0-000-0000]` |
+| **Correo institucional** | `[nombre.apellido@utp.ac.pa]` |
+| **GitHub** | [`@[tu-usuario]`](https://github.com/[tu-usuario]) |
+| **Institución** | Universidad Tecnológica de Panamá |
+| **Carrera** | `[Licenciatura en ...]` |
 
 ---
 
