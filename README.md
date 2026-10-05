@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧪 Laboratorio : Temas Varios (Repaso del CRUD)
+# 🧪 Laboratorio: Temas Varios (Repaso del CRUD)
 
 **Inyección SQL · Consultas Parametrizadas · Métodos Sobrecargados · Recursividad · Frecuencias**
 
@@ -17,8 +17,9 @@ Herramientas de la Programación Aplicada III (.NET)
 | **Módulo** | IV – Acceso a Base de Datos: Aplicaciones en Capas |
 | **Fecha de entrega** | 05 de octubre de 2026 |
 
-![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
-![C#](https://img.shields.io/badge/C%23-12-239120?logo=csharp&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-14-239120?logo=csharp&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-2022-5C2D91?logo=visualstudio&logoColor=white)
 
 </div>
@@ -43,27 +44,27 @@ Herramientas de la Programación Aplicada III (.NET)
 
 ## 📌 Descripción
 
-Solución de consola en C# organizada en tres escenarios técnicos:
+Repositorio con los ejercicios del laboratorio de repaso, organizados en tres escenarios técnicos:
 
-- **Escenario 1:** construcción dinámica de sentencias `INSERT` y `UPDATE` mediante manipulación de cadenas, demostración de una **inyección SQL** y su mitigación con **consultas parametrizadas**.
-- **Escenario 2:** clase con **métodos sobrecargados** y cálculo del **factorial (n!)** de forma recursiva con control del caso base.
-- **Escenario 3:** algoritmo que recorre un conjunto de números y **contabiliza la frecuencia** de cada elemento.
+- **Escenario 1:** construcción dinámica de sentencias `INSERT` y `UPDATE` mediante manipulación de cadenas, demostración de **inyección SQL** sobre la base de datos `productosdb` y su mitigación con **consultas parametrizadas**.
+- **Escenario 2:** clase `SobreCarga` con el método `Cuadrado` sobrecargado para `int` y `double`, y cálculo del **factorial (n!)** del 0 al 10 de forma recursiva.
+- **Escenario 3:** simulación de **6000 tiros de un dado** que contabiliza la frecuencia con la que sale cada cara.
 
 **Objetivo:** reforzar las buenas prácticas de seguridad en el acceso a datos y los fundamentos de programación orientada a objetos y algoritmos en C#.
 
-**Arquitectura:** aplicación de consola .NET con un menú principal (`Program.cs`) que invoca cada escenario, separado en su propia carpeta y clase para mantener el código organizado por responsabilidad.
+**Arquitectura:** cada ejercicio es una aplicación de consola .NET independiente, en su propia carpeta, para poder ejecutarlo y probarlo por separado.
 
 ---
 
 ## 📋 Problemas resueltos
 
-| N.º | Problema | Escenario |
-|---|---|---|
-| 1 | Consultas SQL (3) | Escenario 1 |
-| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 |
-| 3 | Métodos sobrecargados | Escenario 2 |
-| 4 | Recursividad: factorial (n!) | Escenario 2 |
-| 5 | Análisis de frecuencias | Escenario 3 |
+| N.º | Problema | Escenario | Carpeta |
+|---|---|---|---|
+| 1 | Consultas SQL (3) | Escenario 1 | `SQL/` |
+| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 | `SQL/` |
+| 3 | Métodos sobrecargados | Escenario 2 | `SobreCarga/` |
+| 4 | Recursividad: factorial (n!) | Escenario 2 | `Factorial/` |
+| 5 | Análisis de frecuencias | Escenario 3 | `Frecuencias/` |
 
 ---
 
@@ -71,38 +72,35 @@ Solución de consola en C# organizada en tres escenarios técnicos:
 
 | Tecnología | Versión |
 |---|---|
-| .NET SDK | `8.0.x` |
-| C# | `12` |
-| IDE | Visual Studio 2022 `[17.x]` / VS Code |
-| Base de datos | `[SQL Server 2022 / LocalDB / ninguna, solo simulación]` |
-| Paquetes NuGet | `[Microsoft.Data.SqlClient 5.x, si aplica]` |
-| Sistema operativo | `[Windows 11]` |
+| .NET SDK | `10.0` |
+| C# | `14` |
+| IDE | Visual Studio 2022 / Visual Studio Code |
+| Base de datos | MySQL 8.0 (`productosdb`) |
+| Sistema operativo | Windows 11 |
 
 > Verifica tu versión con: `dotnet --version`
+>
+> El ejercicio de sobrecarga se ejecuta como **aplicación de un solo archivo** (`dotnet run SobreCarga.cs`), función disponible desde **.NET 10**.
 
 ---
 
 ## 📂 Estructura del proyecto
 
 ```
-📦 LabTemasVarios
- ┣ 📂 LabTemasVarios
- ┃ ┣ 📂 Escenario1_CRUD
- ┃ ┃ ┗ 📜 GeneradorSql.cs
- ┃ ┣ 📂 Escenario2_Sobrecarga
- ┃ ┃ ┣ 📜 Calculadora.cs
- ┃ ┃ ┗ 📜 Recursividad.cs
- ┃ ┣ 📂 Escenario3_Frecuencias
- ┃ ┃ ┗ 📜 Frecuencias.cs
+📦 LabTemaVarios-HPAIII
+ ┣ 📂 Factorial
  ┃ ┣ 📜 Program.cs
- ┃ ┗ 📜 LabTemasVarios.csproj
+ ┃ ┗ 📜 Factorial.csproj
+ ┣ 📂 SobreCarga
+ ┃ ┗ 📜 SobreCarga.cs
+ ┣ 📂 Frecuencias
+ ┃ ┣ 📜 Program.cs
+ ┃ ┗ 📜 Frecuencias.csproj
+ ┣ 📂 SQL
+ ┃ ┗ 📜 consultas.sql
  ┣ 📂 img
  ┃ ┣ 🖼 problema1.png
- ┃ ┣ 🖼 problema2.png
- ┃ ┣ 🖼 problema3.png
- ┃ ┣ 🖼 problema4.png
- ┃ ┗ 🖼 problema5.png
- ┣ 📜 LabTemasVarios.sln
+ ┃ ┗ 🖼 problema2.png
  ┗ 📜 README.md
 ```
 
@@ -112,8 +110,9 @@ Solución de consola en C# organizada en tres escenarios técnicos:
 
 ### Requisitos previos
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - [Git](https://git-scm.com/)
+- [MySQL 8.0](https://dev.mysql.com/downloads/) (solo para el Escenario 1)
 - Visual Studio 2022 o Visual Studio Code con la extensión C# Dev Kit
 
 ### Pasos
@@ -121,29 +120,33 @@ Solución de consola en C# organizada en tres escenarios técnicos:
 **1. Clonar el repositorio**
 
 ```bash
-git clone https://github.com/[tu-usuario]/[nombre-repo].git
-cd [nombre-repo]
+git clone https://github.com/lielvis22/LabTemaVarios-HPAIII.git
+cd LabTemaVarios-HPAIII
 ```
 
 **2. Restaurar dependencias**
 
 ```bash
-dotnet restore
+dotnet restore Factorial
+dotnet restore Frecuencias
 ```
 
-**3. Compilar**
+**3. Ejecutar cada ejercicio**
 
 ```bash
-dotnet build
+# Problema 3: Métodos sobrecargados (archivo único)
+cd SobreCarga
+dotnet run SobreCarga.cs
+cd ..
+
+# Problema 4: Factorial recursivo
+dotnet run --project Factorial
+
+# Problema 5: Frecuencias
+dotnet run --project Frecuencias
 ```
 
-**4. Ejecutar**
-
-```bash
-dotnet run --project LabTemasVarios
-```
-
-**Alternativa con Visual Studio:** abrir `LabTemasVarios.sln` (o `.slnx`), presionar `F5` o `Ctrl + F5`.
+**Alternativa con Visual Studio:** abrir el `.csproj` (o `.sln`/`.slnx`) del ejercicio y presionar `Ctrl + F5`.
 
 ---
 
@@ -152,14 +155,14 @@ dotnet run --project LabTemasVarios
 ### Construcción de sentencias por concatenación (inseguro)
 
 ```csharp
-public static string ArmarInsert(string nombre, string correo)
+public static string ArmarInsert(string nombre, decimal precio)
 {
-    return "INSERT INTO Usuarios (Nombre, Correo) VALUES ('" + nombre + "', '" + correo + "')";
+    return "INSERT INTO productos (nombre, precio) VALUES ('" + nombre + "', " + precio + ")";
 }
 
 public static string ArmarUpdate(int id, string nombre)
 {
-    return $"UPDATE Usuarios SET Nombre = '{nombre}' WHERE Id = {id}";
+    return $"UPDATE productos SET nombre = '{nombre}' WHERE id = {id}";
 }
 ```
 
@@ -168,13 +171,13 @@ public static string ArmarUpdate(int id, string nombre)
 Si el usuario escribe como nombre:
 
 ```
-x'); DROP TABLE Usuarios; --
+x', 0); DROP TABLE productos; --
 ```
 
 La sentencia generada queda así:
 
 ```sql
-INSERT INTO Usuarios (Nombre, Correo) VALUES ('x'); DROP TABLE Usuarios; --', 'a@a.com')
+INSERT INTO productos (nombre, precio) VALUES ('x', 0); DROP TABLE productos; --', 12)
 ```
 
 El motor ejecutaría el `INSERT` y luego **eliminaría la tabla**, porque el texto ingresado se interpreta como código SQL.
@@ -182,10 +185,10 @@ El motor ejecutaría el `INSERT` y luego **eliminaría la tabla**, porque el tex
 ### Mitigación: consultas parametrizadas
 
 ```csharp
-using var cmd = new SqlCommand(
-    "INSERT INTO Usuarios (Nombre, Correo) VALUES (@nombre, @correo)", conexion);
+using var cmd = new MySqlCommand(
+    "INSERT INTO productos (nombre, precio) VALUES (@nombre, @precio)", conexion);
 cmd.Parameters.AddWithValue("@nombre", nombre);
-cmd.Parameters.AddWithValue("@correo", correo);
+cmd.Parameters.AddWithValue("@precio", precio);
 cmd.ExecuteNonQuery();
 ```
 
@@ -196,21 +199,34 @@ Con parámetros, el valor se envía **como dato y no como código**, por lo que 
 ```sql
 USE productosdb;
 
--- 1. Inyección para forzar la devolución de todos los datos (Bypass lógico)
+-- 1. Inyección para forzar la devolución de todos los datos (bypass lógico)
 SELECT * FROM productos WHERE nombre = '' OR '1'='1';
 
--- 2. Inyección basada en tiempo (Pausa la respuesta por 5 segundos)
+-- 2. Inyección basada en tiempo (pausa la respuesta 1 segundo por cada fila evaluada)
 SELECT * FROM productos WHERE id = 14 - SLEEP(1);
 
--- 3. Inyección mediante comentario (Anula las condiciones posteriores de la consulta)
+-- 3. Inyección mediante comentario (anula las condiciones posteriores de la consulta)
 SELECT * FROM productos WHERE nombre = 'Yuca'; -- ' AND precio = '12';
 ```
+
+| Consulta | Técnica | Efecto |
+|---|---|---|
+| 1 | Bypass lógico | `'1'='1'` siempre es verdadero, así que devuelve **todos** los productos. |
+| 2 | Basada en tiempo | `SLEEP()` retrasa la respuesta; el atacante deduce información por el tiempo de espera. |
+| 3 | Comentario | `--` convierte en comentario la condición de `precio`, que nunca se evalúa. |
 
 ### 📸 Evidencia
 
 **Problema 1: Consultas SQL**
 
-![Problema 1 - Consultas SQL](img/problema1.png)
+Consulta 1
+<img width="440" height="171" alt="image" src="https://github.com/user-attachments/assets/44b1d7e6-f9c8-4d09-b244-cf77b1ce5262" />
+
+Consulta 2
+<img width="432" height="142" alt="image" src="https://github.com/user-attachments/assets/b7d881c0-6c29-4339-83f2-47abf552c82f" />
+
+Consulta 3
+<img width="398" height="102" alt="image" src="https://github.com/user-attachments/assets/56afbbbf-bbb7-41a2-b211-a52d67ab3a41" />
 
 **Problema 2: Cadenas INSERT/UPDATE y consultas parametrizadas**
 
@@ -222,102 +238,191 @@ SELECT * FROM productos WHERE nombre = 'Yuca'; -- ' AND precio = '12';
 
 ### Métodos sobrecargados
 
-Mismo nombre, distinta firma (cantidad o tipo de parámetros):
+La clase `SobreCarga` define dos métodos con el mismo nombre, `Cuadrado`, pero con distinto tipo de parámetro. El compilador elige cuál ejecutar según el tipo del argumento:
 
 ```csharp
-public class Calculadora
+// Ejecutar con: dotnet run SobreCarga.cs
+using System;
+using SobreCargaMetodos;
+
+SobreCarga varSobreCarga = new SobreCarga();
+varSobreCarga.ProbarMetodosSobreCargados();
+varSobreCarga.Cuadrado(8);
+Console.WriteLine("El cuadrado de {0}", varSobreCarga.Cuadrado(9));
+
+namespace SobreCargaMetodos
 {
-    public int Sumar(int a, int b) => a + b;
-    public int Sumar(int a, int b, int c) => a + b + c;
-    public double Sumar(double a, double b) => a + b;
-    public int Sumar(params int[] numeros) => numeros.Sum();
+    public class SobreCarga
+    {
+        /// Prueba los métodos Cuadrado sobrecargados
+        public void ProbarMetodosSobreCargados()
+        {
+            Console.WriteLine("El cuadrado del integer 7 es {0}", Cuadrado(7));
+            Console.WriteLine("El Cuadrado del double 7.5 es {0}", Cuadrado(7.5));
+        }
+
+        public int Cuadrado(int valorInt)
+        {
+            Console.WriteLine("Se llamó a Cuadrado con argumento int:{0}", valorInt);
+            return valorInt * valorInt;
+        }
+
+        public double Cuadrado(double valorDouble)
+        {
+            Console.WriteLine("Se llamó a Cuadrado con argumento double:{0}", valorDouble);
+            return valorDouble * valorDouble;
+        }
+    }
 }
 ```
+
+| Llamada | Método elegido | Resultado |
+|---|---|---|
+| `Cuadrado(7)` | `Cuadrado(int)` | 49 |
+| `Cuadrado(7.5)` | `Cuadrado(double)` | 56.25 |
+| `Cuadrado(8)` | `Cuadrado(int)` | 64 |
+| `Cuadrado(9)` | `Cuadrado(int)` | 81 |
 
 ### Factorial recursivo
 
 ```csharp
-public static long Factorial(int n)
+namespace Factorial
 {
-    if (n < 0) throw new ArgumentException("No existe factorial de números negativos.");
-    if (n <= 1) return 1;            // Caso base: detiene la recursión
-    return n * Factorial(n - 1);     // Llamada recursiva
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Cálculo del factorial del 0 al 10
+            for (long contador = 0; contador <= 10; contador++)
+            {
+                Console.WriteLine("{0}! ={1}", contador, Factorial(contador));
+            }
+        }
+
+        // Declaración recursiva del método Factorial
+        public static long Factorial(long numero)
+        {
+            // Caso base
+            if (numero <= 1)
+                return 1;
+            // Paso de recursividad
+            else return numero * Factorial(numero - 1);
+        }
+    }
 }
 ```
 
-El **caso base** (`n <= 1`) garantiza que la función deje de llamarse a sí misma, evitando un `StackOverflowException`. Se valida además la entrada negativa, que de otro modo nunca alcanzaría el caso base.
+El **caso base** (`numero <= 1`) detiene la recursión: cada llamada reduce `numero` en 1 hasta llegar a 1 (o 0), y ahí la función deja de llamarse a sí misma, evitando un `StackOverflowException`. Como la condición es `<= 1`, también cubre `0! = 1` y los números negativos.
 
-> **Nota:** `long` soporta hasta `20!`. Para valores mayores se puede usar `System.Numerics.BigInteger`.
+**Salida:**
+
+```
+0! =1
+1! =1
+2! =2
+3! =6
+4! =24
+5! =120
+6! =720
+7! =5040
+8! =40320
+9! =362880
+10! =3628800
+```
+
+> **Nota:** el tipo `long` soporta hasta `20!`. Para valores mayores se puede usar `System.Numerics.BigInteger`.
 
 ### 📸 Evidencia
 
 **Problema 3: Métodos sobrecargados**
 
-![Problema 3 - Métodos sobrecargados](img/problema3.png)
+<img width="640" height="180" alt="Problema 3 - Métodos sobrecargados" src="https://github.com/user-attachments/assets/69fd9d4d-77c6-4b7d-88c6-f577d323bed4" />
 
 **Problema 4: Factorial recursivo**
 
-![Problema 4 - Factorial recursivo](img/problema4.png)
+<img width="667" height="297" alt="Problema 4 - Factorial recursivo" src="https://github.com/user-attachments/assets/d2674263-e0c7-4b4a-b748-6653d6dc9de7" />
 
 ---
 
 ## 📊 Escenario 3: Análisis de frecuencias
 
-```csharp
-int[] numeros = { 4, 7, 2, 4, 9, 7, 4, 2, 1 };
-var frecuencias = new Dictionary<int, int>();
+El programa simula **6000 tiros de un dado** con `Random.Next(1, 7)` y usa un `switch` para incrementar el contador de la cara que salió:
 
-foreach (int n in numeros)
+```csharp
+Random numerosAleatorios = new Random();
+
+int frecuencia1 = 0;
+int frecuencia2 = 0;
+int frecuencia3 = 0;
+int frecuencia4 = 0;
+int frecuencia5 = 0;
+int frecuencia6 = 0;
+
+int cara; // Almacena el último valor que se tiró
+
+for (int tiro = 1; tiro <= 6000; tiro++)
 {
-    if (frecuencias.ContainsKey(n))
-        frecuencias[n]++;
-    else
-        frecuencias[n] = 1;
+    // Números del 1 al 6
+    cara = numerosAleatorios.Next(1, 7);
+
+    // Determina el valor del tiro e incrementa el contador apropiado
+    switch (cara)
+    {
+        case 1: frecuencia1++; break;
+        case 2: frecuencia2++; break;
+        case 3: frecuencia3++; break;
+        case 4: frecuencia4++; break;
+        case 5: frecuencia5++; break;
+        case 6: frecuencia6++; break;
+        default:
+            Console.WriteLine("hubo un error de entrada");
+            break;
+    }
 }
 
-Console.WriteLine("Número | Frecuencia");
-foreach (var par in frecuencias.OrderBy(p => p.Key))
-    Console.WriteLine($"{par.Key,6} | {par.Value}");
+Console.WriteLine("Cara \t Frecuencia");
+Console.WriteLine("1\t{0}\n2\t{1}\n3\t{2}\n4\t{3}\n5\t{4}\n6\t{5}",
+    frecuencia1, frecuencia2, frecuencia3, frecuencia4, frecuencia5, frecuencia6);
 ```
 
-**Salida esperada:**
+**Ejemplo de salida** (los valores cambian en cada ejecución porque los tiros son aleatorios):
 
 ```
-Número | Frecuencia
-     1 | 1
-     2 | 2
-     4 | 3
-     7 | 2
-     9 | 1
+Cara     Frecuencia
+1        1003
+2        987
+3        1012
+4        996
+5        1020
+6        982
 ```
 
-Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del arreglo (complejidad **O(n)**).
+Como el dado es justo, cada cara tiende a salir cerca de **1000 veces** (6000 ÷ 6). La suma de las seis frecuencias siempre es 6000.
 
 ### 📸 Evidencia
 
 **Problema 5: Análisis de frecuencias**
 
-![Problema 5 - Frecuencias](img/problema5.png)
+<img width="683" height="175" alt="Problema 5 - Frecuencias" src="https://github.com/user-attachments/assets/be9bffd0-2057-466a-882e-23f3626ee763" />
 
 ---
 
 ## ✅ Conclusiones
 
-- `[Conclusión sobre la inyección SQL y la importancia de parametrizar]`
-- `[Conclusión sobre la sobrecarga de métodos]`
-- `[Conclusión sobre la recursividad y el caso base]`
-- `[Conclusión sobre el conteo de frecuencias]`
+- **Inyección SQL:** concatenar la entrada del usuario directamente en una sentencia SQL permite alterar la lógica de la consulta, como se vio con el bypass `'1'='1'`, el retardo con `SLEEP()` y los comentarios `--`. Las consultas parametrizadas eliminan este riesgo porque el motor trata los valores como datos y nunca como código.
+- **Sobrecarga de métodos:** permite usar un mismo nombre (`Cuadrado`) para operaciones equivalentes sobre distintos tipos de datos. El compilador escoge la versión correcta según el tipo del argumento, lo que hace el código más legible y fácil de usar.
+- **Recursividad:** el factorial se resuelve reduciendo el problema en cada llamada hasta llegar al caso base. Sin un caso base bien definido la función se llamaría indefinidamente y provocaría un desbordamiento de pila.
+- **Frecuencias:** los contadores permiten resumir grandes volúmenes de datos (6000 tiros) en una tabla corta. Los resultados muestran que, con suficientes repeticiones, cada cara se acerca a la probabilidad teórica de 1/6.
 
 ---
 
 ## 📚 Referencias
 
-- [Documentación de .NET 8 – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/core/whats-new/dotnet-8/overview)
-- [SqlCommand.Parameters – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/api/microsoft.data.sqlclient.sqlcommand.parameters)
+- [Novedades de .NET 10 – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/core/whats-new/dotnet-10/overview)
 - [Inyección SQL – OWASP](https://owasp.org/www-community/attacks/SQL_Injection)
 - [Sobrecarga de métodos en C# – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/csharp/methods#method-overloading)
-- [Dictionary&lt;TKey,TValue&gt; – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/api/system.collections.generic.dictionary-2)
-- 🎥 Video de demostración: `[enlace al video, si aplica]`
+- [Clase Random – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/api/system.random)
+- [Instrucción switch – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/csharp/language-reference/statements/selection-statements#the-switch-statement)
 
 ---
 
@@ -328,8 +433,9 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 | **Nombre** | Elvis Li |
 | **Cédula** | 8-1028-139 |
 | **Correo institucional** | elvis.li@utp.ac.pa |
+| **GitHub** | [@lielvis22](https://github.com/lielvis22) |
 | **Institución** | Universidad Tecnológica de Panamá |
-| **Carrera** | Licenciatura en Ingeniería en Sistema Computacionales |
+| **Carrera** | Licenciatura en Ingeniería en Sistemas Computacionales |
 
 ---
 
