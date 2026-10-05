@@ -321,12 +321,11 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 
 | | |
 |---|---|
-| **Nombre** | `[Tu nombre completo]` |
-| **Cédula** | `[0-000-0000]` |
-| **Correo institucional** | `[nombre.apellido@utp.ac.pa]` |
-| **GitHub** | [`@[tu-usuario]`](https://github.com/[tu-usuario]) |
+| **Nombre** | `[Elvis Li]` |
+| **Cédula** | `[8-1028-139]` |
+| **Correo institucional** | `[elvis.li@utp.ac.pa]` |
 | **Institución** | Universidad Tecnológica de Panamá |
-| **Carrera** | `[Licenciatura en ...]` |
+| **Carrera** | `[Licenciatura en Ingeniería en Sistema Computacionales]` |
 
 ---
 
@@ -334,6 +333,6 @@ Se usa un `Dictionary<int, int>` porque permite contar en un solo recorrido del 
 
 **Universidad Tecnológica de Panamá** · Facultad de Ingeniería en Sistemas Computacionales
 Herramientas de la Programación Aplicada III (.NET) · Grupo 1IL133
-Entregado el `[dd/mm/2026]` por `[Tu nombre]`
+Entregado el `[05/10/2026]` por `[Elvis Li]`
 
 </div>
