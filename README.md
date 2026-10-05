@@ -46,13 +46,13 @@ Herramientas de la Programación Aplicada III (.NET)
 
 Repositorio con los ejercicios del laboratorio de repaso, organizados en tres escenarios técnicos:
 
-- **Escenario 1:** construcción dinámica de sentencias `INSERT` y `UPDATE` mediante manipulación de cadenas, demostración de **inyección SQL** sobre la base de datos `productosdb` y su mitigación con **consultas parametrizadas**.
+- **Escenario 1:** aplicación Windows Forms `CRUD_PRODUCTOS` que genera dinámicamente las sentencias `INSERT` y `UPDATE` mediante manipulación de cadenas y las ejecuta con **consultas parametrizadas**, junto con tres ejemplos de **inyección SQL** sobre la base de datos `productosdb`.
 - **Escenario 2:** clase `SobreCarga` con el método `Cuadrado` sobrecargado para `int` y `double`, y cálculo del **factorial (n!)** del 0 al 10 de forma recursiva.
 - **Escenario 3:** simulación de **6000 tiros de un dado** que contabiliza la frecuencia con la que sale cada cara.
 
 **Objetivo:** reforzar las buenas prácticas de seguridad en el acceso a datos y los fundamentos de programación orientada a objetos y algoritmos en C#.
 
-**Arquitectura:** cada ejercicio es una aplicación de consola .NET independiente, en su propia carpeta, para poder ejecutarlo y probarlo por separado.
+**Arquitectura:** cada ejercicio es un proyecto .NET independiente, en su propia carpeta. El CRUD separa la interfaz (`Form1`), el acceso a datos (`Conexion`) y la validación de campos (`IValidadorCampo` y sus implementaciones).
 
 ---
 
@@ -61,7 +61,7 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 | N.º | Problema | Escenario | Carpeta |
 |---|---|---|---|
 | 1 | Consultas SQL (3) | Escenario 1 | `SQL/` |
-| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 | `SQL/` |
+| 2 | Generación de cadenas `INSERT`/`UPDATE` y consultas parametrizadas | Escenario 1 | `CRUD_PRODUCTOS/` |
 | 3 | Métodos sobrecargados | Escenario 2 | `SobreCarga/` |
 | 4 | Recursividad: factorial (n!) | Escenario 2 | `Factorial/` |
 | 5 | Análisis de frecuencias | Escenario 3 | `Frecuencias/` |
@@ -76,6 +76,8 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 | C# | `14` |
 | IDE | Visual Studio 2022 / Visual Studio Code |
 | Base de datos | MySQL 8.0 (`productosdb`) |
+| Interfaz del CRUD | Windows Forms |
+| Paquete NuGet | MySqlConnector |
 | Sistema operativo | Windows 11 |
 
 > Verifica tu versión con: `dotnet --version`
@@ -88,6 +90,15 @@ Repositorio con los ejercicios del laboratorio de repaso, organizados en tres es
 
 ```
 📦 LabTemaVarios-HPAIII
+ ┣ 📂 CRUD_PRODUCTOS
+ ┃ ┣ 📜 Form1.cs
+ ┃ ┣ 📜 Conexion.cs
+ ┃ ┣ 📜 Producto.cs
+ ┃ ┣ 📜 IValidadorCampo.cs
+ ┃ ┣ 📜 ValidadorTexto.cs
+ ┃ ┣ 📜 ValidadorDecimal.cs
+ ┃ ┣ 📜 ValidadorEntero.cs
+ ┃ ┗ 📜 CRUD_PRODUCTOS.csproj
  ┣ 📂 Factorial
  ┃ ┣ 📜 Program.cs
  ┃ ┗ 📜 Factorial.csproj
@@ -127,13 +138,25 @@ cd LabTemaVarios-HPAIII
 **2. Restaurar dependencias**
 
 ```bash
+dotnet restore CRUD_PRODUCTOS
 dotnet restore Factorial
 dotnet restore Frecuencias
 ```
 
-**3. Ejecutar cada ejercicio**
+**3. Configurar la base de datos (solo para el CRUD)**
+
+Crear la base `productosdb` con la tabla `productos` (`id`, `nombre`, `precio`, `cantidad`, `imagen`) y ajustar la cadena de conexión en `CRUD_PRODUCTOS/Conexion.cs` con tu usuario y contraseña de MySQL:
+
+```csharp
+"Server=localhost;Database=productosdb;Uid=root;Pwd=TU_CONTRASEÑA"
+```
+
+**4. Ejecutar cada ejercicio**
 
 ```bash
+# Problema 2: CRUD con consultas parametrizadas (Windows Forms)
+dotnet run --project CRUD_PRODUCTOS
+
 # Problema 3: Métodos sobrecargados (archivo único)
 cd SobreCarga
 dotnet run SobreCarga.cs
@@ -152,47 +175,200 @@ dotnet run --project Frecuencias
 
 ## 🔐 Escenario 1: Seguridad en el CRUD y consultas parametrizadas
 
-### Construcción de sentencias por concatenación (inseguro)
+### Generación dinámica de cadenas INSERT y UPDATE
+
+En la clase `Conexion`, las sentencias se **arman con manipulación de cadenas** (`string.Join`, interpolación y LINQ) a partir de las claves de un `Dictionary<string, object>`. Así un mismo método sirve para cualquier tabla y cualquier conjunto de columnas.
 
 ```csharp
-public static string ArmarInsert(string nombre, decimal precio)
+// Insert genérico y seguro (evita inyección SQL)
+public static bool InsertSeguro(string tbName, Dictionary<string, object> data)
 {
-    return "INSERT INTO productos (nombre, precio) VALUES ('" + nombre + "', " + precio + ")";
+    var columns = string.Join(", ", data.Keys);
+    var placeholders = "@" + string.Join(", @", data.Keys);
+    string sql = $"INSERT INTO {tbName} ({columns}) VALUES ({placeholders})";
+
+    try
+    {
+        using (MySqlConnection conexion = ObtenerConexion())
+        {
+            if (conexion == null) return false;
+
+            using (MySqlCommand stmt = new MySqlCommand(sql, conexion))
+            {
+                foreach (var kvp in data)
+                {
+                    stmt.Parameters.AddWithValue("@" + kvp.Key, kvp.Value ?? DBNull.Value);
+                }
+
+                stmt.ExecuteNonQuery();
+                return true;
+            }
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error en INSERT: " + ex.Message);
+        MessageBox.Show("Error en INSERT: " + ex.Message);
+        return false;
+    }
 }
 
-public static string ArmarUpdate(int id, string nombre)
+// Update genérico y seguro, por id
+public static bool UpdateSeguro(string tbName, Dictionary<string, object> data, int id)
 {
-    return $"UPDATE productos SET nombre = '{nombre}' WHERE id = {id}";
+    var sets = string.Join(", ", data.Keys.Select(k => $"{k} = @{k}"));
+    string sql = $"UPDATE {tbName} SET {sets} WHERE id = @id";
+
+    try
+    {
+        using (MySqlConnection conexion = ObtenerConexion())
+        {
+            if (conexion == null) return false;
+
+            using (MySqlCommand stmt = new MySqlCommand(sql, conexion))
+            {
+                foreach (var kvp in data)
+                {
+                    stmt.Parameters.AddWithValue("@" + kvp.Key, kvp.Value ?? DBNull.Value);
+                }
+                stmt.Parameters.AddWithValue("@id", id);
+
+                stmt.ExecuteNonQuery();
+                return true;
+            }
+        }
+    }
+    catch (MySqlException ex)
+    {
+        Console.WriteLine("Error en UPDATE: " + ex.Message);
+        return false;
+    }
 }
 ```
 
-### Demostración de inyección SQL
-
-Si el usuario escribe como nombre:
-
-```
-x', 0); DROP TABLE productos; --
-```
-
-La sentencia generada queda así:
+Con el diccionario que llena el formulario (`Nombre`, `Precio`, `Cantidad`, `Imagen`), las cadenas generadas son:
 
 ```sql
-INSERT INTO productos (nombre, precio) VALUES ('x', 0); DROP TABLE productos; --', 12)
+INSERT INTO productos (Cantidad, Precio, Nombre, Imagen) VALUES (@Cantidad, @Precio, @Nombre, @Imagen)
+
+UPDATE productos SET Cantidad = @Cantidad, Precio = @Precio, Nombre = @Nombre, Imagen = @Imagen WHERE id = @id
 ```
 
-El motor ejecutaría el `INSERT` y luego **eliminaría la tabla**, porque el texto ingresado se interpreta como código SQL.
+Los **nombres de tabla y columnas** salen del código, nunca del usuario. Los **valores** que escribe el usuario solo viajan como parámetros (`@Nombre`, `@Precio`…), por lo que no forman parte del texto SQL.
 
-### Mitigación: consultas parametrizadas
+### Uso desde el formulario
 
 ```csharp
-using var cmd = new MySqlCommand(
-    "INSERT INTO productos (nombre, precio) VALUES (@nombre, @precio)", conexion);
-cmd.Parameters.AddWithValue("@nombre", nombre);
-cmd.Parameters.AddWithValue("@precio", precio);
-cmd.ExecuteNonQuery();
+private void CargarDatosProductos()
+{
+    myProducto["Cantidad"] = int.Parse(txtCantidad.Text.Trim());
+    myProducto["Precio"] = decimal.Parse(txtPrecio.Text.Trim());
+    myProducto["Nombre"] = txtNombre.Text.Trim();
+    myProducto["Imagen"] = ImageToByteArray(pictureBox1.Image);
+}
+
+private void btnGuardar_Click(object sender, EventArgs e)
+{
+    if (datosCorrectos())
+    {
+        CargarDatosProductos();
+
+        if (Conexion.InsertSeguro("productos", myProducto))
+        {
+            MessageBox.Show("Se ha guardado satisfactoriamente el registro");
+            cargarProductos();
+            limpiarFormulario();
+        }
+    }
+}
+
+private void btnModificar_Click(object sender, EventArgs e)
+{
+    // ... valida selección y datos ...
+    CargarDatosProductos();
+
+    if (Conexion.UpdateSeguro("productos", myProducto, idSeleccionado))
+    {
+        MessageBox.Show("Se ha modificado satisfactoriamente el registro");
+        cargarProductos();
+        limpiarFormulario();
+        idSeleccionado = 0;
+    }
+}
 ```
 
-Con parámetros, el valor se envía **como dato y no como código**, por lo que la entrada maliciosa se guarda literalmente como texto y no se ejecuta.
+### Comparación: concatenación vs. consulta parametrizada
+
+Si el `INSERT` se armara **pegando directamente los valores** del usuario, la entrada se mezclaría con el código SQL:
+
+```csharp
+// ❌ INSEGURO: el valor del usuario se concatena dentro del SQL
+string sql = "INSERT INTO productos (nombre, precio, cantidad) VALUES ('"
+             + txtNombre.Text + "', " + txtPrecio.Text + ", " + txtCantidad.Text + ")";
+```
+
+Con el nombre `X', 0, 0); DROP TABLE productos; --` la sentencia quedaría:
+
+```sql
+INSERT INTO productos (nombre, precio, cantidad) VALUES ('X', 0, 0); DROP TABLE productos; --', 10, 5)
+```
+
+y el motor **borraría la tabla**. En `InsertSeguro`, ese mismo texto se envía como el valor del parámetro `@Nombre` y se guarda literalmente como el nombre del producto, sin ejecutarse.
+
+| | Concatenación | `InsertSeguro` / `UpdateSeguro` |
+|---|---|---|
+| Valores del usuario | Se pegan dentro del SQL | Viajan aparte como parámetros |
+| Inyección SQL | Posible | Bloqueada |
+| Comillas y caracteres especiales | Rompen la sentencia | Se manejan automáticamente |
+| Imágenes (`byte[]`) | Difícil de enviar | Se envían directo como parámetro |
+
+### Capa extra: validación de campos
+
+Antes de llegar a la base de datos, cada campo pasa por un validador. Todos implementan la interfaz `IValidadorCampo`, lo que permite recorrerlos en una sola lista (polimorfismo):
+
+```csharp
+public interface IValidadorCampo
+{
+    bool EsValido(string? valor);
+    string MensajeError { get; }
+}
+```
+
+| Clase | Campo | Regla |
+|---|---|---|
+| `ValidadorTexto` | `txtNombre` | No puede estar vacío |
+| `ValidadorDecimal` | `txtPrecio` | Decimal válido, mayor o igual a 0 |
+| `ValidadorEntero` | `txtCantidad` | Entero válido, mayor o igual a 0 |
+
+```csharp
+public class ValidadorDecimal : IValidadorCampo
+{
+    public string MensajeError { get; private set; } = string.Empty;
+
+    public bool EsValido(string? valor)
+    {
+        if (string.IsNullOrWhiteSpace(valor) ||
+            !decimal.TryParse(valor.Trim(), out decimal resultado) ||
+            resultado < 0)
+        {
+            MensajeError = "Debe ingresar un número decimal válido (mayor o igual a 0).";
+            return false;
+        }
+
+        MensajeError = string.Empty;
+        return true;
+    }
+}
+```
+
+En `Form1` se registran los tres validadores y `datosCorrectos()` los recorre, marca con un `ErrorProvider` los campos inválidos y lleva el cursor al primero con error:
+
+```csharp
+camposValidar.Add((txtNombre, new ValidadorTexto()));
+camposValidar.Add((txtPrecio, new ValidadorDecimal()));
+camposValidar.Add((txtCantidad, new ValidadorEntero()));
+```
+
 
 ### Consultas SQL
 
@@ -219,18 +395,13 @@ SELECT * FROM productos WHERE nombre = 'Yuca'; -- ' AND precio = '12';
 
 **Problema 1: Consultas SQL**
 
-Consulta 1
-<img width="440" height="171" alt="image" src="https://github.com/user-attachments/assets/44b1d7e6-f9c8-4d09-b244-cf77b1ce5262" />
-
-Consulta 2
-<img width="432" height="142" alt="image" src="https://github.com/user-attachments/assets/b7d881c0-6c29-4339-83f2-47abf552c82f" />
-
-Consulta 3
-<img width="398" height="102" alt="image" src="https://github.com/user-attachments/assets/56afbbbf-bbb7-41a2-b211-a52d67ab3a41" />
+![Problema 1 - Consultas SQL](img/problema1.png)
 
 **Problema 2: Cadenas INSERT/UPDATE y consultas parametrizadas**
 
-![Problema 2 - Inyección SQL y consultas parametrizadas](img/problema2.png)
+> Captura del formulario `CRUD_PRODUCTOS` guardando o modificando un producto.
+
+![Problema 2 - CRUD con consultas parametrizadas](img/problema2.png)
 
 ---
 
@@ -409,7 +580,7 @@ Como el dado es justo, cada cara tiende a salir cerca de **1000 veces** (6000 ÷
 
 ## ✅ Conclusiones
 
-- **Inyección SQL:** concatenar la entrada del usuario directamente en una sentencia SQL permite alterar la lógica de la consulta, como se vio con el bypass `'1'='1'`, el retardo con `SLEEP()` y los comentarios `--`. Las consultas parametrizadas eliminan este riesgo porque el motor trata los valores como datos y nunca como código.
+- **Inyección SQL:** concatenar la entrada del usuario directamente en una sentencia SQL permite alterar la lógica de la consulta, como se vio con el bypass `'1'='1'`, el retardo con `SLEEP()` y los comentarios `--`. En el CRUD, los métodos `InsertSeguro` y `UpdateSeguro` generan la estructura de la sentencia con manipulación de cadenas, pero envían los valores como parámetros, por lo que el motor los trata como datos y nunca como código. La validación con `IValidadorCampo` agrega una segunda barrera antes de llegar a la base de datos.
 - **Sobrecarga de métodos:** permite usar un mismo nombre (`Cuadrado`) para operaciones equivalentes sobre distintos tipos de datos. El compilador escoge la versión correcta según el tipo del argumento, lo que hace el código más legible y fácil de usar.
 - **Recursividad:** el factorial se resuelve reduciendo el problema en cada llamada hasta llegar al caso base. Sin un caso base bien definido la función se llamaría indefinidamente y provocaría un desbordamiento de pila.
 - **Frecuencias:** los contadores permiten resumir grandes volúmenes de datos (6000 tiros) en una tabla corta. Los resultados muestran que, con suficientes repeticiones, cada cara se acerca a la probabilidad teórica de 1/6.
@@ -419,6 +590,7 @@ Como el dado es justo, cada cara tiende a salir cerca de **1000 veces** (6000 ÷
 ## 📚 Referencias
 
 - [Novedades de .NET 10 – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/core/whats-new/dotnet-10/overview)
+- [MySqlConnector – Documentación](https://mysqlconnector.net/)
 - [Inyección SQL – OWASP](https://owasp.org/www-community/attacks/SQL_Injection)
 - [Sobrecarga de métodos en C# – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/csharp/methods#method-overloading)
 - [Clase Random – Microsoft Learn](https://learn.microsoft.com/es-es/dotnet/api/system.random)
